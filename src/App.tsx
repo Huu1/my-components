@@ -1,24 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import cogoToast from './components/Toast';
+
+
+
+const arr= [
+  'top-left',
+ 'top-center',
+ 'top-right',
+ 'bottom-left',
+ 'bottom-center',
+ 'bottom-right',
+]
 
 function App() {
+  const showToast=(i)=>{
+    const id= cogoToast.loading(i,{
+      position: i,
+    })
+    setTimeout(() => {
+      id.hide?.();
+      cogoToast.success('关闭成功',{
+        position: i
+      })
+    }, 2000);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        arr.map(i=>{
+          return <button key={i} onClick={()=>showToast(i)}>{i}</button>
+        })
+      }
     </div>
   );
 }
